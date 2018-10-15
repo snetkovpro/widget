@@ -1,0 +1,70 @@
+
+{$wa->js()}
+{literal}
+
+
+<script type="text/javascript">
+	
+	(function($){
+		
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = new google.visualization.DataTable();
+		  data.addColumn('string', 'Artikul');
+		  data.addColumn('number', 'items');
+		  
+		  
+		  
+		  
+		
+{/literal}
+		{foreach $artikuls as $artikul}
+
+		data.addRow(['{$artikul.name}', {$artikul.total}]);
+		{/foreach}
+{literal}
+
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'title':'Самый продаваемый товар по артикулам', 'width':310, 'height':310};
+
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		  chart.draw(data, options);
+		}
+	})(jQuery);
+		
+	
+		
+</script>
+{/literal}
+<style>
+	#l30 { padding: 2em; }
+	#l30 h6 { font-weight: normal; }
+	#l30 p { font-size: 6em; text-align: center; font-weight: bold; margin-top: 0.3em;}
+	#l30 span { font-size: 0.2em; }
+	#l30 b { font-size: 1.3em; }
+</style>
+
+
+
+{if $action=='number'}
+<div class="block" id="l30">
+	<h6>{$title|escape}</h6>
+	<hr>
+	
+        
+            <b>{$name}</b>
+            <p>{$quantity}<span>шт.</span></p>
+            
+    
+</div>
+{/if}
+{if $action=='diagram'}
+<div class="block" id="piechart">
+	
+</div>
+
+{/if}
